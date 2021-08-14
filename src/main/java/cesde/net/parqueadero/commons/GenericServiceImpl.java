@@ -1,6 +1,6 @@
 package cesde.net.parqueadero.commons;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
@@ -40,5 +40,5 @@ public abstract class GenericServiceImpl<T, ID extends Serializable> implements 
         return getDao().save(entity);
     }
 
-    public abstract CrudRepository<T, ID> getDao();
+    public abstract JpaRepository<T, ID> getDao();
 }
