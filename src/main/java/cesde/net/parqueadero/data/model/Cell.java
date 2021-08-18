@@ -11,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-@Data
 @AllArgsConstructor
 @Builder
 @NoArgsConstructor
@@ -23,5 +22,21 @@ public class Cell {
 
     private Boolean condition;
 
-    private Boolean occupied;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Boolean getCondition() {
+        return condition;
+    }
+
+    public void setCondition(Boolean condition) {
+        this.condition = condition;
+    }
+
 }

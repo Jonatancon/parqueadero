@@ -10,7 +10,6 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Data
 @AllArgsConstructor
 @Builder
 @NoArgsConstructor
@@ -37,4 +36,54 @@ public class ParkingLot {
     @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date finalDate;
+
+    private Boolean Active;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Car getCar() {
+        return car;
+    }
+
+    public void setCar(Car car) {
+        this.car = car;
+    }
+
+    public Cell getCell() {
+        return cell;
+    }
+
+    public void setCell(Cell cell) {
+        this.cell = cell;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getFinalDate() {
+        return finalDate;
+    }
+
+    public void setFinalDate(Date finalDate) {
+        this.finalDate = finalDate;
+    }
+
+    public Boolean getActive() {
+        return Active;
+    }
+
+    public void setActive(Boolean active) {
+        Active = active;
+    }
 }

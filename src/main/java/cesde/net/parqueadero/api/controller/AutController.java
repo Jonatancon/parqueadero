@@ -1,5 +1,7 @@
 package cesde.net.parqueadero.api.controller;
 
+import cesde.net.parqueadero.api.dtos.JwtDto;
+import cesde.net.parqueadero.api.dtos.LoginUser;
 import cesde.net.parqueadero.api.dtos.Message;
 import cesde.net.parqueadero.api.dtos.NewUser;
 import cesde.net.parqueadero.configurations.jwt.JwtProvider;
@@ -12,6 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +33,7 @@ public class AutController {
 
     public final static String AUTH = "/auth";
     public final static String NEW_USER = "/new-user";
+    public final static String LOGIN = "/login";
 
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -66,5 +73,25 @@ public class AutController {
         personService.save(person);
 
         return new ResponseEntity<>(new Message("Usuario Guardado"),HttpStatus.CREATED);
+    }
+
+    @PostMapping(LOGIN)
+    public ResponseEntity<JwtDto> login (@Valid @RequestBody
+                                         LoginUser loginUser, BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return new ResponseEntity(new Message("Campos mal puestos"), HttpStatus.BAD_REQUEST);
+
+        Authentication authentication =
+                authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                        loginUser.getDni(), loginUser.getPassword()));
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        String jwt = jwtProvider.generateToken(authentication);
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+        JwtDto jwtDto = new JwtDto(jwt, userDetails.getUsername(), userDetails.getAuthorities());
+
+        return new ResponseEntity<>(jwtDto,HttpStatus.OK);
     }
 }

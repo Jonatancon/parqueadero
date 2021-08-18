@@ -16,11 +16,11 @@ public class RolServiceImpl {
     @Autowired
     private RolDao rolDao;
 
-    public RolServiceImpl(RolDao rolDao) {
-        this.rolDao = rolDao;
-    }
-
     public Optional<Rol> getByRolName (RolName rolName) {
         return rolDao.findByRolName(rolName);
+    }
+
+    public void save (Rol rol) {
+        rolDao.save(rol);
     }
 }

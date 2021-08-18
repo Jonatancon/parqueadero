@@ -33,6 +33,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             if (token != null && jwtProvider.validateToken(token)) {
                 String dniUser = jwtProvider.getDniFromToken(token);
                 UserDetails userDetails = userDetailsService.loadUserByUsername(dniUser);
+
                 UsernamePasswordAuthenticationToken auth =
                         new UsernamePasswordAuthenticationToken(userDetails,
                                 null, userDetails.getAuthorities());

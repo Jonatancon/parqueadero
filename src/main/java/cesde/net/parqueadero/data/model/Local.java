@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Data
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
@@ -29,4 +28,44 @@ public class Local {
 
     @Column(name = "total_places")
     private Integer totalPlaces;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Integer getAvailableSpace() {
+        return availableSpace;
+    }
+
+    public void setAvailableSpace(Integer availableSpace) {
+        this.availableSpace = availableSpace;
+    }
+
+    public Integer getReservedPlaces() {
+        return reservedPlaces;
+    }
+
+    public void setReservedPlaces(Integer reservedPlaces) {
+        this.reservedPlaces = reservedPlaces;
+    }
+
+    public Integer getOccupiedPlaces() {
+        return occupiedPlaces;
+    }
+
+    public void setOccupiedPlaces(Integer occupiedPlaces) {
+        this.occupiedPlaces = occupiedPlaces;
+    }
+
+    public Integer getTotalPlaces() {
+        return totalPlaces;
+    }
+
+    public void setTotalPlaces(Integer totalPlaces) {
+        this.totalPlaces = totalPlaces;
+    }
 }

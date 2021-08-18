@@ -16,7 +16,7 @@ public class NewUser {
     private String name;
     @NotBlank
     private String password;
-    @NotBlank
+
     private Local local;
 
     private Set<String> roles = new HashSet<>();

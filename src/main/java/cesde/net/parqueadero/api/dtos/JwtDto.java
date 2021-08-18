@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
-import java.util.Collection;
 
 @Data
 @AllArgsConstructor
@@ -20,4 +19,9 @@ public class JwtDto {
     private String dni;
     private Collection<? extends GrantedAuthority> authorities;
 
+    public JwtDto(String token, String dni, Collection<? extends GrantedAuthority> authorities) {
+        this.token = token;
+        this.dni = dni;
+        this.authorities = authorities;
+    }
 }
