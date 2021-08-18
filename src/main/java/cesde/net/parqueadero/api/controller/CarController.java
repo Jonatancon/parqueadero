@@ -1,7 +1,6 @@
 package cesde.net.parqueadero.api.controller;
 
 import cesde.net.parqueadero.data.model.Car;
-import cesde.net.parqueadero.domain.services.access.CarService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +16,7 @@ public class CarController {
     public static final String ALL_CARS = "/find/all-cars";
     public static final String CARS = "/API/car";
 
-    private final CarService carService;
+    /*private final CarService carService;
 
     public CarController(CarService carService) {
         this.carService = carService;
@@ -37,7 +36,7 @@ public class CarController {
     public ResponseEntity<Car> save (@RequestBody Car car) {
         Car obj = carService.save(car);
         return new ResponseEntity<>(obj, HttpStatus.CREATED);
-    }
+    }*/
 
 
 }

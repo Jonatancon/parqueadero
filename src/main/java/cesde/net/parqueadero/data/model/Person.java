@@ -39,4 +39,11 @@ public class Person {
     @JoinTable(name = "user_rol", joinColumns = @JoinColumn(name = "user_id"),
     inverseJoinColumns = @JoinColumn(name = "rol_id"))
     private Set<Rol> rols = new HashSet<>();
+
+    public Person(String dni, String name, String password, Local local) {
+        this.dni = dni;
+        this.name = name;
+        this.password = password;
+        this.local = local;
+    }
 }

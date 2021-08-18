@@ -1,8 +1,7 @@
-package cesde.net.parqueadero.domain.services.impl;
+package cesde.net.parqueadero.domain.services;
 
 import cesde.net.parqueadero.data.model.Person;
 import cesde.net.parqueadero.data.model.PrincipalUser;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

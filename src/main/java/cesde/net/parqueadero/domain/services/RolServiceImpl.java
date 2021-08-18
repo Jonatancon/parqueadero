@@ -1,4 +1,4 @@
-package cesde.net.parqueadero.domain.services.impl;
+package cesde.net.parqueadero.domain.services;
 
 import cesde.net.parqueadero.data.daos.RolDao;
 import cesde.net.parqueadero.data.model.Rol;
@@ -13,7 +13,8 @@ import java.util.Optional;
 @Transactional
 public class RolServiceImpl {
 
-    private final RolDao rolDao;
+    @Autowired
+    private RolDao rolDao;
 
     public RolServiceImpl(RolDao rolDao) {
         this.rolDao = rolDao;
