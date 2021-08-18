@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -32,4 +34,9 @@ public class Person {
     @JoinColumn(name = "fk_local")
     @ManyToOne(fetch = FetchType.LAZY)
     private Local local;
+
+    @ManyToMany
+    @JoinTable(name = "user_rol", joinColumns = @JoinColumn(name = "user_id"),
+    inverseJoinColumns = @JoinColumn(name = "rol_id"))
+    private Set<Rol> rols = new HashSet<>();
 }
