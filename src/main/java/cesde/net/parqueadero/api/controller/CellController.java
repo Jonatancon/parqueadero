@@ -32,9 +32,13 @@ public class CellController {
 
     @GetMapping(ACTIVES)
     public ResponseEntity<List<Cell>> getActives () {
-        List<Cell> list = (List<Cell>) cellService.activeCell().get();
 
-        return new ResponseEntity<>(list, HttpStatus.OK);
+        try{
+            List<Cell> list = (List<Cell>) cellService.activeCell().get();
+            return new ResponseEntity<>(list, HttpStatus.OK);
+        }catch (Exception e) {
+            return new ResponseEntity(new Message("No hay espacios agregados"), HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping(UPDATE)

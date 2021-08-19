@@ -20,7 +20,7 @@ public class ParkingLotController {
 
     public final static String PARKING = "/api/parking";
     public final static String SAVE = "/save";
-    public final static String CAR_ACTIVE = "/car-active/{id}";
+    public final static String CAR_ACTIVE = "/car-active";
     public final static String ALL_ACTIVES = "/alls-active";
     public final static String UPDATE = "/update";
 
@@ -28,24 +28,36 @@ public class ParkingLotController {
     private ParkingLotServiceImpl parkingLotService;
 
     @GetMapping(CAR_ACTIVE)
-    public ResponseEntity<ParkingLot> getCarActive (@PathVariable ParkingLotDto parkingLotDto) {
-        ParkingLot parkingLot = parkingLotService.findCarActive(parkingLotDto.getCar());
-
-        return new ResponseEntity<>(parkingLot, HttpStatus.OK);
+    public ResponseEntity<ParkingLot> getCarActive (ParkingLotDto parkingLotDto) {
+        try{
+            ParkingLot parkingLot = parkingLotService.findCarActive(parkingLotDto.getCar());
+            return new ResponseEntity<>(parkingLot, HttpStatus.OK);
+        }catch (Exception e) {
+            return new ResponseEntity(new Message("El carro no esta activo"), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping(ALL_ACTIVES)
     public ResponseEntity<List<ParkingLot>> getAllActives () {
-        List<ParkingLot> list = (List<ParkingLot>) parkingLotService.findAllActives().get();
+        try{
+            List<ParkingLot> list = (List<ParkingLot>) parkingLotService.findAllActives().get();
+            return new ResponseEntity<>(list, HttpStatus.OK);
+        }catch (Exception e) {
+            return new ResponseEntity(new Message("No hay vehiculos en el parqueadero"), HttpStatus.NOT_FOUND);
+        }
 
-        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
     @PostMapping(SAVE)
     public ResponseEntity<?> create (@RequestBody ParkingLotDto parkingLotDto) throws ParseException {
-        if (parkingLotService.existCarActive(parkingLotDto.getCar()))
-            return new ResponseEntity<>(new Message("El vehiculo ya se encuentra en el parqueadero"),
-                    HttpStatus.BAD_REQUEST);
+
+        try{
+            if (parkingLotService.existCarActive(parkingLotDto.getCar()))
+                return new ResponseEntity<>(new Message("El vehiculo ya se encuentra en el parqueadero"),
+                        HttpStatus.BAD_REQUEST);
+        }catch (Exception e) {
+
+        }
 
         parkingLotDto.setStartDate();
 
