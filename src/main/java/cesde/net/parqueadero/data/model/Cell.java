@@ -22,6 +22,16 @@ public class Cell {
 
     private Boolean condition;
 
+    private Boolean reserved;
+
+
+    public Boolean getReserved() {
+        return reserved;
+    }
+
+    public void setReserved(Boolean reserved) {
+        this.reserved = reserved;
+    }
 
     public Long getId() {
         return id;

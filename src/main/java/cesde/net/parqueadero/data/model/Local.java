@@ -29,6 +29,13 @@ public class Local {
     @Column(name = "total_places")
     private Integer totalPlaces;
 
+    public Local(Integer availableSpace, Integer reservedPlaces, Integer occupiedPlaces, Integer totalPlaces) {
+        this.availableSpace = availableSpace;
+        this.reservedPlaces = reservedPlaces;
+        this.occupiedPlaces = occupiedPlaces;
+        this.totalPlaces = totalPlaces;
+    }
+
     public Long getId() {
         return id;
     }

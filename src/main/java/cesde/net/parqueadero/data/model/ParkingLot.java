@@ -1,16 +1,13 @@
 package cesde.net.parqueadero.data.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@AllArgsConstructor
 @Builder
 @NoArgsConstructor
 public class ParkingLot {
@@ -37,7 +34,24 @@ public class ParkingLot {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date finalDate;
 
-    private Boolean Active;
+    private Boolean active;
+
+    public ParkingLot(Car car, Cell cell, Date startDate, Date finalDate, Boolean active) {
+        this.car = car;
+        this.cell = cell;
+        this.startDate = startDate;
+        this.finalDate = finalDate;
+        this.active = active;
+    }
+
+    public ParkingLot(Long id, Car car, Cell cell, Date startDate, Date finalDate, Boolean active) {
+        this.id = id;
+        this.car = car;
+        this.cell = cell;
+        this.startDate = startDate;
+        this.finalDate = finalDate;
+        this.active = active;
+    }
 
     public Long getId() {
         return id;
@@ -80,10 +94,10 @@ public class ParkingLot {
     }
 
     public Boolean getActive() {
-        return Active;
+        return active;
     }
 
     public void setActive(Boolean active) {
-        Active = active;
+        this.active = active;
     }
 }

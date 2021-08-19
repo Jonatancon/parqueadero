@@ -23,15 +23,15 @@ public class Contract {
 
     private BigDecimal value;
 
-    @Column(name = "start_date")
-    @Temporal(TemporalType.TIMESTAMP)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date startDate;
+    private String name;
 
-    @Column(name = "final_date")
-    @Temporal(TemporalType.TIMESTAMP)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date finalDate;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public Long getId() {
         return id;
@@ -47,21 +47,5 @@ public class Contract {
 
     public void setValue(BigDecimal value) {
         this.value = value;
-    }
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getFinalDate() {
-        return finalDate;
-    }
-
-    public void setFinalDate(Date finalDate) {
-        this.finalDate = finalDate;
     }
 }

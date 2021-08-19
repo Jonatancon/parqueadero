@@ -1,29 +1,17 @@
-package cesde.net.parqueadero.data.model;
+package cesde.net.parqueadero.api.dtos;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import cesde.net.parqueadero.data.model.Contract;
+import cesde.net.parqueadero.data.model.Owner;
 
-import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
-@Entity
-@Builder
-@NoArgsConstructor
-public class Car {
-
-    @Id
-    @Column(name = "dni_car")
+public class CarDto {
+    @NotBlank
     private String dniCar;
-
-    @JoinColumn(name = "fk_owner")
-    @ManyToOne
     private Owner owner;
-
-    @JoinColumn(name = "fk_contract")
-    @OneToOne
     private Contract contract;
 
-    public Car(String dniCar, Owner owner, Contract contract) {
+    public CarDto(@NotBlank String dniCar, Owner owner, Contract contract) {
         this.dniCar = dniCar;
         this.owner = owner;
         this.contract = contract;

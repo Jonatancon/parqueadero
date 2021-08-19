@@ -11,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-@AllArgsConstructor
 @Builder
 @NoArgsConstructor
 public class Owner {
@@ -20,6 +19,11 @@ public class Owner {
     private String dni;
 
     private String name;
+
+    public Owner(String dni, String name) {
+        this.dni = dni;
+        this.name = name;
+    }
 
     public String getDni() {
         return dni;
