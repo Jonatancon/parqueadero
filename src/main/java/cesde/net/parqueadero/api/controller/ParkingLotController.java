@@ -2,7 +2,6 @@ package cesde.net.parqueadero.api.controller;
 
 import cesde.net.parqueadero.api.dtos.Message;
 import cesde.net.parqueadero.api.dtos.ParkingLotDto;
-import cesde.net.parqueadero.data.model.Car;
 import cesde.net.parqueadero.data.model.ParkingLot;
 import cesde.net.parqueadero.domain.services.ParkingLotServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,7 @@ public class ParkingLotController {
 
     public final static String PARKING = "/api/parking";
     public final static String SAVE = "/save";
-    public final static String CAR_ACTIVE = "/car-active";
+    public final static String CAR_ACTIVE = "/car-active/{id}";
     public final static String ALL_ACTIVES = "/alls-active";
     public final static String UPDATE = "/update";
 
@@ -28,19 +27,23 @@ public class ParkingLotController {
     private ParkingLotServiceImpl parkingLotService;
 
     @GetMapping(CAR_ACTIVE)
-    public ResponseEntity<ParkingLot> getCarActive (ParkingLotDto parkingLotDto) {
-        try{
-            ParkingLot parkingLot = parkingLotService.findCarActive(parkingLotDto.getCar());
-            return new ResponseEntity<>(parkingLot, HttpStatus.OK);
-        }catch (Exception e) {
-            return new ResponseEntity(new Message("El carro no esta activo"), HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<ParkingLot> getCarActive (@PathVariable Long id) {
+        if (!parkingLotService.existById(id))
+            return new ResponseEntity(new Message("El carro no ha Ingresado"), HttpStatus.NOT_FOUND);
+
+        ParkingLot parkingLot = parkingLotService.findParking(id);
+        return new ResponseEntity<>(parkingLot, HttpStatus.OK);
     }
 
     @GetMapping(ALL_ACTIVES)
     public ResponseEntity<List<ParkingLot>> getAllActives () {
         try{
-            List<ParkingLot> list = (List<ParkingLot>) parkingLotService.findAllActives().get();
+            List<ParkingLot> list = parkingLotService.findAllActives().get();
+
+            if (list.size() == 0) {
+                return new ResponseEntity(new Message("No hay Vehiculos en el Parqueadero"), HttpStatus.NO_CONTENT);
+            }
+
             return new ResponseEntity<>(list, HttpStatus.OK);
         }catch (Exception e) {
             return new ResponseEntity(new Message("No hay vehiculos en el parqueadero"), HttpStatus.NOT_FOUND);

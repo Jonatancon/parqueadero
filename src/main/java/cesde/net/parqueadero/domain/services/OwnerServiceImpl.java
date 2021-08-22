@@ -14,7 +14,7 @@ public class OwnerServiceImpl  {
     private OwnerDao ownerDao;
 
     public Owner get(String dni) {
-        return ownerDao.getById(dni);
+        return ownerDao.findById(dni).get();
     }
 
     public Boolean existDni (String dni) {

@@ -20,7 +20,7 @@ public class CarServiceImpl {
     }
 
     public Car get(String idCar) {
-        return carDao.getById(idCar);
+        return carDao.findById(idCar).get();
     }
 
     public Boolean existCar (String car) {

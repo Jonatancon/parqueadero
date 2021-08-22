@@ -21,7 +21,7 @@ public class ParkingLot {
     private Car car;
 
     @JoinColumn(name = "fk_cell")
-    @OneToOne
+    @ManyToOne
     private Cell cell;
 
     @Column(name = "start_date")

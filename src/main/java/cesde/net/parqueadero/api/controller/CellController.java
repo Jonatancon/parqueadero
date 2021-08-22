@@ -25,7 +25,11 @@ public class CellController {
 
     @GetMapping(ALL)
     public ResponseEntity<List<Cell>> getAll () {
-        List<Cell> list = cellService.getAll();
+        List<Cell> list = cellService.getAll().get();
+
+        if (list.size() == 0) {
+            return new ResponseEntity(new Message("No quedan cupos en el parqueadero"), HttpStatus.BAD_REQUEST);
+        }
 
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
@@ -34,7 +38,12 @@ public class CellController {
     public ResponseEntity<List<Cell>> getActives () {
 
         try{
-            List<Cell> list = (List<Cell>) cellService.activeCell().get();
+            List<Cell> list = cellService.activeCell().get();
+
+            if (list.size() == 0) {
+                return new ResponseEntity(new Message("No hay espacios a reservar"), HttpStatus.BAD_REQUEST);
+            }
+
             return new ResponseEntity<>(list, HttpStatus.OK);
         }catch (Exception e) {
             return new ResponseEntity(new Message("No hay espacios agregados"), HttpStatus.NOT_FOUND);

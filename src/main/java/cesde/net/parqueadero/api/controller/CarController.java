@@ -17,7 +17,7 @@ public class CarController {
 
     public static final String SAVE_CARS = "/car-save";
     public static final String FIND_CAR = "/find-car/{id}";
-    public static final String CARS = "/API/car";
+    public static final String CARS = "/api/car";
 
     @Autowired
     private CarServiceImpl carService;
@@ -43,7 +43,7 @@ public class CarController {
 
         Car car = carService.get(id);
 
-        return new ResponseEntity<>(car, HttpStatus.OK);
+        return new ResponseEntity<Car>(car, HttpStatus.OK);
     }
 
 }

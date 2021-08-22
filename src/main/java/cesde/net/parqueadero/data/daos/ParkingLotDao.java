@@ -5,6 +5,7 @@ import cesde.net.parqueadero.data.model.ParkingLot;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -12,7 +13,7 @@ public interface ParkingLotDao extends JpaRepository<ParkingLot,Long> {
 
     ParkingLot findByCarAndActiveIsTrue (Car car);
 
-    Optional<ParkingLot> findAllByActiveIsTrue ();
+    Optional<List<ParkingLot>> findAllByActiveTrue ();
 
     Boolean existsByCarAndActiveIsTrue (Car car);
 }

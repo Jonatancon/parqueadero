@@ -1,35 +1,28 @@
 package cesde.net.parqueadero.data.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
-@AllArgsConstructor
-@Builder
-@NoArgsConstructor
 public class Cell {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Boolean condition;
+    @Column(nullable = true)
+    private boolean ocupado;
 
-    private Boolean reserved;
+    @Column(nullable = true)
+    private boolean reserved;
 
-
-    public Boolean getReserved() {
-        return reserved;
+    public Cell() {
     }
 
-    public void setReserved(Boolean reserved) {
+    public Cell(Long id, boolean ocupado, boolean reserved) {
+        this.id = id;
+        this.ocupado = ocupado;
         this.reserved = reserved;
     }
 
@@ -41,12 +34,19 @@ public class Cell {
         this.id = id;
     }
 
-    public Boolean getCondition() {
-        return condition;
+    public boolean isOcupado() {
+        return ocupado;
     }
 
-    public void setCondition(Boolean condition) {
-        this.condition = condition;
+    public void setOcupado(boolean ocupado) {
+        this.ocupado = ocupado;
     }
 
+    public boolean isReserved() {
+        return reserved;
+    }
+
+    public void setReserved(boolean reserved) {
+        this.reserved = reserved;
+    }
 }

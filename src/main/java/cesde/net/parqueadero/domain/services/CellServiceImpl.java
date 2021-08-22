@@ -16,15 +16,15 @@ public class CellServiceImpl {
     @Autowired
     private CellDao cellDao;
 
-    public List<Cell> getAll () {
-        return cellDao.findAll();
+    public Optional<List<Cell>> getAll () {
+        return cellDao.findAllByOcupadoFalse();
     }
 
     public void update (Cell cell) {
         cellDao.save(cell);
     }
 
-    public Optional<Cell> activeCell () {
-        return cellDao.findAllByConditionIsTrue();
+    public Optional<List<Cell>> activeCell () {
+        return cellDao.findAllByOcupadoFalseAndReservedFalse();
     }
 }

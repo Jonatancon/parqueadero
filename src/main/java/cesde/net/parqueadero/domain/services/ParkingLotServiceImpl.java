@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,12 +25,20 @@ public class ParkingLotServiceImpl {
         return parkingLotDao.findByCarAndActiveIsTrue(car);
     }
 
-    public Optional<ParkingLot> findAllActives () {
-        return parkingLotDao.findAllByActiveIsTrue();
+    public Optional<List<ParkingLot>> findAllActives () {
+        return parkingLotDao.findAllByActiveTrue();
     }
 
     public Boolean existCarActive (Car car) {
         return parkingLotDao.existsByCarAndActiveIsTrue(car);
+    }
+
+    public ParkingLot findParking(Long id) {
+        return parkingLotDao.findById(id).get();
+    }
+
+    public Boolean existById(Long id) {
+        return parkingLotDao.existsById(id);
     }
 
 

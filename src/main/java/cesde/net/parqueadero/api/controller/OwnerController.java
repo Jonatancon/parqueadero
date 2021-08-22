@@ -17,18 +17,20 @@ public class OwnerController {
 
     public final static String OWNER = "/api/owner";
     public final static String SAVE_OWNER = "/save";
-    public final static String GET_OWNER = "/get-owner/{id}";
+    public final static String GET_OWNER = "/get-owner/{dni}";
 
     @Autowired
     private OwnerServiceImpl ownerService;
 
     @PostMapping(SAVE_OWNER)
-    public ResponseEntity<Owner> create(@RequestBody OwnerDto ownerDto) {
+    public ResponseEntity<?> create(@RequestBody OwnerDto ownerDto) {
 
         if (StringUtils.isBlank(ownerDto.getDni()))
             return new ResponseEntity(new Message("Error en el DNI"), HttpStatus.BAD_REQUEST);
         if (StringUtils.isBlank(ownerDto.getName()))
             return new ResponseEntity(new Message("Error en el Nombre"), HttpStatus.BAD_REQUEST);
+        if  (ownerService.existDni(ownerDto.getDni()))
+            return new ResponseEntity(new Message("Este Propietario ya existe"), HttpStatus.BAD_REQUEST);
 
         Owner owner = new Owner(ownerDto.getDni(), ownerDto.getName());
         ownerService.saveOwner(owner);
@@ -37,10 +39,13 @@ public class OwnerController {
     }
 
     @GetMapping(GET_OWNER)
-    public ResponseEntity<Owner> getOwner (@PathVariable String id) {
-        Owner owner = ownerService.get(id);
+    public ResponseEntity<Owner> getOwner (@PathVariable String dni) {
+        if (!ownerService.existDni(dni))
+            return new ResponseEntity(new Message("No existe el propietario"), HttpStatus.NOT_FOUND);
 
-        return new ResponseEntity<>(owner, HttpStatus.OK);
+        Owner owner = ownerService.get(dni);
+
+        return new ResponseEntity<Owner>(owner, HttpStatus.OK);
     }
 
 }
