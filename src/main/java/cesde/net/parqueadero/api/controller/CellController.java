@@ -19,9 +19,16 @@ public class CellController {
     public final static String ALL = "/cell-all";
     public final static String ACTIVES = "/cell-active";
     public final static String UPDATE = "/cell-update";
+    public final static String GET_CELL = "/find-cell/{id}";
 
     @Autowired
     private CellServiceImpl cellService;
+
+    @GetMapping(GET_CELL)
+    public ResponseEntity<Cell> finById(@PathVariable Long id) {
+        Cell cell = cellService.getById(id);
+        return new ResponseEntity<Cell>(cell, HttpStatus.OK);
+    }
 
     @GetMapping(ALL)
     public ResponseEntity<List<Cell>> getAll () {

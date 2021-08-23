@@ -27,4 +27,9 @@ public class CellServiceImpl {
     public Optional<List<Cell>> activeCell () {
         return cellDao.findAllByOcupadoFalseAndReservedFalse();
     }
+
+    public Cell getById(Long id){
+        return cellDao.findById(id).get();
+    }
+
 }

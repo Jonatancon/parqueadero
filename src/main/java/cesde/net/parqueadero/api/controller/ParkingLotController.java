@@ -40,8 +40,8 @@ public class ParkingLotController {
         try{
             List<ParkingLot> list = parkingLotService.findAllActives().get();
 
-            if (list.size() == 0) {
-                return new ResponseEntity(new Message("No hay Vehiculos en el Parqueadero"), HttpStatus.NO_CONTENT);
+            if (list.isEmpty()) {
+                return new ResponseEntity(new Message("No hay Vehiculos en el Parqueadero"), HttpStatus.NOT_FOUND);
             }
 
             return new ResponseEntity<>(list, HttpStatus.OK);
@@ -65,7 +65,7 @@ public class ParkingLotController {
         parkingLotDto.setStartDate();
 
         ParkingLot parkingLot = new ParkingLot(parkingLotDto.getCar(), parkingLotDto.getCell(),
-                parkingLotDto.getStartDate(), parkingLotDto.getFinalDate(),parkingLotDto.getActive());
+                parkingLotDto.getStartDate(), parkingLotDto.getFinalDate(),true);
 
         parkingLotService.save(parkingLot);
 
@@ -82,6 +82,6 @@ public class ParkingLotController {
 
         parkingLotService.save(parkingLot);
 
-        return new ResponseEntity<>(parkingLotDto.diff(), HttpStatus.OK);
+        return new ResponseEntity<>(new Message(parkingLotDto.diff()), HttpStatus.OK);
     }
 }

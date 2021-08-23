@@ -25,18 +25,18 @@ public class ParkingLot {
     private Cell cell;
 
     @Column(name = "start_date")
-    @Temporal(TemporalType.TIMESTAMP)
+    //@Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date startDate;
+    private String startDate;
 
     @Column(name = "final_date")
-    @Temporal(TemporalType.TIMESTAMP)
+    //@Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date finalDate;
+    private String finalDate;
 
     private Boolean active;
 
-    public ParkingLot(Car car, Cell cell, Date startDate, Date finalDate, Boolean active) {
+    public ParkingLot(Car car, Cell cell, String startDate, String finalDate, Boolean active) {
         this.car = car;
         this.cell = cell;
         this.startDate = startDate;
@@ -44,7 +44,7 @@ public class ParkingLot {
         this.active = active;
     }
 
-    public ParkingLot(Long id, Car car, Cell cell, Date startDate, Date finalDate, Boolean active) {
+    public ParkingLot(Long id, Car car, Cell cell, String startDate, String finalDate, Boolean active) {
         this.id = id;
         this.car = car;
         this.cell = cell;
@@ -77,19 +77,19 @@ public class ParkingLot {
         this.cell = cell;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public Date getFinalDate() {
+    public String getFinalDate() {
         return finalDate;
     }
 
-    public void setFinalDate(Date finalDate) {
+    public void setFinalDate(String finalDate) {
         this.finalDate = finalDate;
     }
 
